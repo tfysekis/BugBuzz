@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BugBuzz">
         <activity
+            android:name=".StartGame"
+            android:exported="false" />
+        <activity
             android:name=".ProfileSelection"
             android:exported="false" />
         <activity
