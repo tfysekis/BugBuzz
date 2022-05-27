@@ -7,11 +7,12 @@
     android:background="@drawable/startupbackround"
     tools:context=".MainMenu">
 
-    <Button
+        <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Game"
+        android:onClick="onStartGame"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -52,6 +53,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

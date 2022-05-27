@@ -2,11 +2,10 @@ package com.example.bug_buzz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.MediaPlayer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Switch;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -18,6 +17,11 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
     }
 
+
+    public void onStartGame(View view) {
+        Intent intent = new Intent(this, ProfileSelection.class);
+        startActivity(intent);
+    }
 
     public void QuitApp(View view) {
         MainMenu.this.finish();
