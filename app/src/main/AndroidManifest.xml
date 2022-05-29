@@ -20,6 +20,7 @@
         <activity
             android:name=".ProfileSelection"
             android:exported="false"
+            android:parentActivityName=".MainMenu"
             android:label="@string/label_profile_selection" />
         <activity
             android:name=".MainMenu"

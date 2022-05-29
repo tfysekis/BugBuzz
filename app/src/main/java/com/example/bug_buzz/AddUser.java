@@ -2,10 +2,14 @@ package com.example.bug_buzz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.database.CrossProcessCursor;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddUser extends AppCompatActivity {
     EditText username_input;
@@ -22,8 +26,30 @@ public class AddUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MyDBHelper Players = new MyDBHelper(AddUser.this);
-                Players.addPlayer(username_input.getText().toString().trim());
+                String givenUsername = username_input.getText().toString().trim();
+                if(usernameExists(Players, givenUsername)){
+                    Toast.makeText(AddUser.this, "user already exists", Toast.LENGTH_SHORT).show();
+                }else{
+                    Players.addPlayer(givenUsername);
+                    Intent intent = new Intent(AddUser.this, ProfileSelection.class);
+                    startActivity(intent);
+                }
+
             }
         });
+    }
+    boolean usernameExists(MyDBHelper database, String username){
+        Cursor cursor = database.readAllData();
+
+        cursor.moveToFirst();
+        for(int i = 0; i < cursor.getCount(); i++){
+            String usernameInDB = cursor.getString(1).trim();
+            if(username.equals(usernameInDB)){
+                System.out.println("ASDASSd");
+                return true;
+            }
+            cursor.moveToNext();
+        }
+        return false;
     }
 }

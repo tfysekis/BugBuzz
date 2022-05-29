@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,15 +30,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.my_row, parent, false);
+        View view = inflater.inflate(R.layout.my_row1, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.player_id_txt.setText(String.valueOf(player_id.get(position)));
+        //holder.player_id_txt.setText(String.valueOf(player_id.get(position)));
         holder.player_username_txt.setText(String.valueOf(player_username.get(position)));
-        holder.player_highscore_txt.setText(String.valueOf(player_highscore.get(position)));
+        //holder.player_highscore_txt.setText(String.valueOf(player_highscore.get(position)));
 
     }
 
@@ -48,12 +48,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView player_id_txt, player_username_txt, player_highscore_txt;
+        //TextView player_id_txt, player_username_txt, player_highscore_txt;
+        Button player_username_txt;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            player_id_txt = itemView.findViewById(R.id.player_id_txt);
+            //player_id_txt = itemView.findViewById(R.id.player_id_txt);
             player_username_txt = itemView.findViewById(R.id.player_username_txt);
-            player_highscore_txt = itemView.findViewById(R.id.player_highscore_txt);
+            //player_highscore_txt = itemView.findViewById(R.id.player_highscore_txt);
         }
     }
 }
