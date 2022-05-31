@@ -2,6 +2,9 @@ package com.example.bug_buzz;
 
 public class Questions {
 
+    private int answerID;
+
+
     public static String questions[]={
             "Who created C++?",
             "Which programming language from the above is NOT object oriented?",
@@ -17,4 +20,34 @@ public class Questions {
             "C",
             "merge sort"
     };
+
+    public String getQuestion(int a){
+        String question = questions[a];
+        return question;
+    }
+
+    public String getChoice1(int a){
+        String choice = choices[a][0];
+        return choice;
+    }
+
+    public String getChoice2(int a){
+        String choice = choices[a][1];
+        return choice;
+    }
+
+    public String getChoice3(int a){
+        String choice = choices[a][2];
+        return choice;
+    }
+
+    public String getChoice4(int a){
+        String choice = choices[a][3];
+        return choice;
+    }
+
+    public String getCorrectAnswer(int a){
+        String answer = correctAnswers[a];
+        return answer;
+    }
 }
