@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class ProfileSelection extends AppCompatActivity {
     RecyclerView recyclerView;
     FloatingActionButton add_button;
+    //Button username;
 
     MyDBHelper Players;
     ArrayList<String> player_id, player_username, player_highscore;
@@ -29,6 +31,8 @@ public class ProfileSelection extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
+        //username = findViewById(R.id.player_username_txt);
+        //on click listener for add button
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +40,6 @@ public class ProfileSelection extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         Players = new MyDBHelper(ProfileSelection.this);
         player_id = new ArrayList<>();
         player_username = new ArrayList<>();
@@ -51,6 +54,7 @@ public class ProfileSelection extends AppCompatActivity {
 
     void storeDataInArrays(){
         Cursor cursor = Players.readAllData();
+
         if(cursor.getCount() == 0){
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
         }else{
@@ -60,6 +64,7 @@ public class ProfileSelection extends AppCompatActivity {
                 player_username.add(cursor.getString(1));
                 player_highscore.add(cursor.getString(2));
                 cursor.moveToNext();
+
             }
         }
 

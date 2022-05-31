@@ -15,6 +15,8 @@ import java.util.Random;
 
 public class StartGame extends AppCompatActivity implements View.OnClickListener {
 
+    String player_username;
+
     Button button7, button6, button5, button;
 
     private Questions question = new Questions();
@@ -28,6 +30,12 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+
+        if(getIntent().hasExtra("player_username")){
+            player_username = getIntent().getStringExtra("player_username");
+            Toast.makeText(this, player_username, Toast.LENGTH_SHORT).show();
+        }
+
 
         button7 = (Button)findViewById(R.id.button7);
         button7.setOnClickListener(this);

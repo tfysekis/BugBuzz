@@ -44,8 +44,18 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+    public Cursor readAllData(){
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
 
-    public void addPlayer(String username){
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    void addPlayer(String username){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -59,14 +69,13 @@ public class MyDBHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Succesfully Added", Toast.LENGTH_SHORT).show();
         }
     }
-    public Cursor readAllData(){
-        String query = "SELECT * FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
+    boolean deletePlayer(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor;
+        return db.delete(TABLE_NAME, COLUMN_USERNAME + "=?",new String[]{username}) > 0;
+
     }
+
+
+
 }
