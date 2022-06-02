@@ -38,6 +38,12 @@ public class AddUser extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        AddUser.this.finish();
+
+    }
     boolean usernameExists(MyDBHelper database, String username){
         Cursor cursor = database.readAllData();
 
@@ -45,7 +51,7 @@ public class AddUser extends AppCompatActivity {
         for(int i = 0; i < cursor.getCount(); i++){
             String usernameInDB = cursor.getString(1).trim();
             if(username.equals(usernameInDB)){
-                System.out.println("ASDASSd");
+                System.out.println("username already exists");
                 return true;
             }
             cursor.moveToNext();

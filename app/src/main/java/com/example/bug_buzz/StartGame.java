@@ -45,8 +45,6 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         button5.setOnClickListener(this);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(this);
-
-
     }
 
 

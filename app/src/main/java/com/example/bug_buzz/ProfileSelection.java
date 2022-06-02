@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,7 +23,8 @@ public class ProfileSelection extends AppCompatActivity {
 
     MyDBHelper Players;
     ArrayList<String> player_id, player_username, player_highscore;
-
+    private final String KEY_RECYCLER_STATE = "recycler_state";
+    private static Bundle mBundleRecyclerViewState;
     CustomAdapter customAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,33 @@ public class ProfileSelection extends AppCompatActivity {
         customAdapter = new CustomAdapter(ProfileSelection.this, player_id,player_username,player_highscore);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ProfileSelection.this));
+
+
     }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        ProfileSelection.this.finish();
+        // save RecyclerView state
+        mBundleRecyclerViewState = new Bundle();
+        Parcelable listState = recyclerView.getLayoutManager().onSaveInstanceState();
+        mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
+
+    }
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // restore RecyclerView state
+        if (mBundleRecyclerViewState != null) {
+            Parcelable listState = mBundleRecyclerViewState.getParcelable(KEY_RECYCLER_STATE);
+            recyclerView.getLayoutManager().onRestoreInstanceState(listState);
+        }
+    }
+
 
     void storeDataInArrays(){
         Cursor cursor = Players.readAllData();

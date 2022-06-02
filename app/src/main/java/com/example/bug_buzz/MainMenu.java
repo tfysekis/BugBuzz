@@ -17,17 +17,19 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
     }
 
-
+    //on click method for Start Game button
     public void onStartGame(View view) {
         Intent intent = new Intent(this, ProfileSelection.class);
         startActivity(intent);
     }
 
+    //on click method for Highscores button
     public void onHighScores(View view){
         Intent intent= new Intent(this, HighScores.class);
         startActivity(intent);
     }
 
+    //on click method for exit button
     public void QuitApp(View view) {
         MainMenu.this.finish();
         System.exit(0);
