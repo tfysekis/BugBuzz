@@ -16,14 +16,11 @@ import java.util.Random;
 public class StartGame extends AppCompatActivity implements View.OnClickListener {
 
     String player_username;
-
-    Button button7, button6, button5, button;
-
+    Button button7, button6, button5, button, button8;
+    TextView myTextView;
     private Questions question = new Questions();
-
     private String answer;
     private int questionLength = question.questions.length;
-
     Random random;
 
     @Override
@@ -36,6 +33,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
             Toast.makeText(this, player_username, Toast.LENGTH_SHORT).show();
         }
 
+        random = new Random();
 
         button7 = (Button)findViewById(R.id.button7);
         button7.setOnClickListener(this);
@@ -45,81 +43,85 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         button5.setOnClickListener(this);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(this);
+        button8 = (Button)findViewById(R.id.button8);
+        button8.setOnClickListener(this);
+
+        myTextView = (TextView)findViewById(R.id.myTextView);
+        NextQuestion(random.nextInt(questionLength));
     }
 
 
-
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button7:
                 if(button7.getText() == answer){
+                    //TODO: Score ++ to database
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion(random.nextInt(questionLength));
                 }else{
-                    GameOver();
+                    WrongAnswer();
                 }
-
                 break;
-
             case R.id.button6:
                 if(button6.getText() == answer){
+                    //TODO: Score ++ to database
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion(random.nextInt(questionLength));
                 }else{
-                    GameOver();
+                    WrongAnswer();
                 }
-
                 break;
 
             case R.id.button5:
                 if(button5.getText() == answer){
+                    //TODO: Score ++ to database
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion(random.nextInt(questionLength));
                 }else{
-                    GameOver();
+                    WrongAnswer();
                 }
-
                 break;
 
             case R.id.button:
                 if(button.getText() == answer){
+                    //TODO: Score ++ to database
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion(random.nextInt(questionLength));
                 }else{
-                    GameOver();
+                    WrongAnswer();
                 }
-
                 break;
+
+            case R.id.button8:
+                Toast.makeText(StartGame.this, "You skipped the question", Toast.LENGTH_SHORT).show();
+                NextQuestion(random.nextInt(questionLength));
         }
     }
 
-    private void GameOver(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(StartGame.this);
-        alertDialogBuilder
-                .setMessage("Game Over")
-                .setCancelable(false)
-                .setPositiveButton("New Game", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), StartGame.class));
-                    }
-                })
-                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
-                    }
-                });
-        alertDialogBuilder.show();
+    /**
+     * This class is activated when the player's
+     * choice is wrong.
+     */
 
+    private void WrongAnswer(){
+        Toast.makeText(StartGame.this, "Wrong Answer", Toast.LENGTH_SHORT).show();
+        //TODO: Maybe Score-- to database
+        NextQuestion(random.nextInt(questionLength));
     }
 
+    /**
+     * This class is setting new texts for buttons and
+     * textView everytime the player make a choice or skip
+     * the question.
+     */
+
     private void NextQuestion(int num){
+        myTextView.setText(question.getQuestion(num));
         button7.setText(question.getChoice1(num));
         button6.setText(question.getChoice2(num));
         button5.setText(question.getChoice3(num));
         button.setText(question.getChoice4(num));
-
         answer = question.getCorrectAnswer(num);
     }
 }
