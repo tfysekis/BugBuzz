@@ -3,13 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.29483695652173914" />
+        <entry key="app/src/main/res/drawable/ic__383929.xml" value="0.3575" />
+        <entry key="app/src/main/res/drawable/ic__no_users.xml" value="0.3255" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_no_users.xml" value="0.3255" />
+        <entry key="app/src/main/res/drawable/ic_round_account_circle_24.xml" value="0.3255" />
         <entry key="app/src/main/res/layout-land/activity_main_menu.xml" value="0.33" />
+        <entry key="app/src/main/res/layout-land/activity_profile_selection.xml" value="0.30158730158730157" />
         <entry key="app/src/main/res/layout-land/activity_start_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_add_user.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_high_scores.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_profile_selection.xml" value="0.5335413416536662" />
+        <entry key="app/src/main/res/layout/activity_profile_selection.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_start_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_main_menu.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.35625" />

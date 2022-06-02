@@ -21,8 +21,6 @@ public class MyDBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_HIGHSCORE = "player_highscore";
 
 
-
-
     public MyDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;

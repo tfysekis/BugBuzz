@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     Context context;
-    ArrayList player_id,player_username,player_highscore;
+    protected ArrayList player_id,player_username,player_highscore;
     int position;
 
     public CustomAdapter(Context context,

@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,7 +21,8 @@ import java.util.ArrayList;
 public class ProfileSelection extends AppCompatActivity {
     RecyclerView recyclerView;
     FloatingActionButton add_button;
-    //Button username;
+    ImageView empty_imageView;
+    TextView noData, selectAUser;
 
     MyDBHelper Players;
     ArrayList<String> player_id, player_username, player_highscore;
@@ -33,7 +36,10 @@ public class ProfileSelection extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
-        //username = findViewById(R.id.player_username_txt);
+        empty_imageView = findViewById(R.id.image_view_no_users);
+        noData = findViewById(R.id.no_users_text_view);
+        selectAUser = findViewById(R.id.select_a_user_text_view);
+
         //on click listener for add button
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +85,13 @@ public class ProfileSelection extends AppCompatActivity {
         }
     }
 
-
     void storeDataInArrays(){
         Cursor cursor = Players.readAllData();
 
         if(cursor.getCount() == 0){
-            Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
+            selectAUser.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+            empty_imageView.setVisibility(View.VISIBLE);
         }else{
             cursor.moveToFirst();
             for(int i = 0; i < cursor.getCount(); i++){
@@ -94,7 +101,9 @@ public class ProfileSelection extends AppCompatActivity {
                 cursor.moveToNext();
 
             }
+            selectAUser.setVisibility(View.VISIBLE);
+            noData.setVisibility(View.GONE);
+            empty_imageView.setVisibility(View.GONE);
         }
-
     }
 }
