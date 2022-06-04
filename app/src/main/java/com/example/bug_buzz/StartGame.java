@@ -1,101 +1,94 @@
 package com.example.bug_buzz;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Random;
 
 public class StartGame extends AppCompatActivity implements View.OnClickListener {
 
-    String player_username;
-    Button button7, button6, button5, button, button8;
-    TextView myTextView;
-    private Questions question = new Questions();
+    private String player_username;
+    private Button buttonA, buttonB, buttonC, buttonD, button_skip;
+    private TextView myTextView;
     private String answer;
-    private int questionLength = question.questions.length;
-    Random random;
+    private int questionLength;
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
-
         if(getIntent().hasExtra("player_username")){
             player_username = getIntent().getStringExtra("player_username");
             Toast.makeText(this, player_username, Toast.LENGTH_SHORT).show();
         }
+        Questions.initializeQuestions();
+        Questions.correctAnswers();
+        Questions.shuffleEverything();
+        questionLength = Questions.questions.size();
 
-        random = new Random();
-
-        button7 = (Button)findViewById(R.id.button7);
-        button7.setOnClickListener(this);
-        button6 = (Button)findViewById(R.id.button6);
-        button6.setOnClickListener(this);
-        button5 = (Button)findViewById(R.id.button5);
-        button5.setOnClickListener(this);
-        button = (Button)findViewById(R.id.button);
-        button.setOnClickListener(this);
-        button8 = (Button)findViewById(R.id.button8);
-        button8.setOnClickListener(this);
-
+        buttonA = (Button)findViewById(R.id.buttonA);
+        buttonB = (Button)findViewById(R.id.buttonB);
+        buttonC = (Button)findViewById(R.id.buttonC);
+        buttonD = (Button)findViewById(R.id.buttonD);
+        button_skip = (Button)findViewById(R.id.button_skip);
         myTextView = (TextView)findViewById(R.id.myTextView);
-        NextQuestion(random.nextInt(questionLength));
+        NextQuestion();
     }
 
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.button7:
-                if(button7.getText() == answer){
+            case R.id.buttonA:
+                if(buttonA.getText() == answer){
                     //TODO: Score ++ to database
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
-                    NextQuestion(random.nextInt(questionLength));
+                    NextQuestion();
                 }else{
                     WrongAnswer();
                 }
                 break;
-            case R.id.button6:
-                if(button6.getText() == answer){
+            case R.id.buttonB:
+                if(buttonB.getText() == answer){
                     //TODO: Score ++ to database
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
-                    NextQuestion(random.nextInt(questionLength));
-                }else{
-                    WrongAnswer();
-                }
-                break;
-
-            case R.id.button5:
-                if(button5.getText() == answer){
-                    //TODO: Score ++ to database
-                    Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
-                    NextQuestion(random.nextInt(questionLength));
+                    NextQuestion();
                 }else{
                     WrongAnswer();
                 }
                 break;
 
-            case R.id.button:
-                if(button.getText() == answer){
+            case R.id.buttonC:
+                if(buttonC.getText() == answer){
                     //TODO: Score ++ to database
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
-                    NextQuestion(random.nextInt(questionLength));
+                    NextQuestion();
                 }else{
                     WrongAnswer();
                 }
                 break;
 
-            case R.id.button8:
+            case R.id.buttonD:
+                if(buttonD.getText() == answer){
+                    //TODO: Score ++ to database
+                    Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
+                    NextQuestion();
+                }else{
+                    WrongAnswer();
+                }
+                break;
+
+            case R.id.button_skip:
                 Toast.makeText(StartGame.this, "You skipped the question", Toast.LENGTH_SHORT).show();
-                NextQuestion(random.nextInt(questionLength));
+                NextQuestion();
         }
     }
 
@@ -107,7 +100,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     private void WrongAnswer(){
         Toast.makeText(StartGame.this, "Wrong Answer", Toast.LENGTH_SHORT).show();
         //TODO: Maybe Score-- to database
-        NextQuestion(random.nextInt(questionLength));
+        NextQuestion();
     }
 
     /**
@@ -116,12 +109,18 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
      * the question.
      */
 
-    private void NextQuestion(int num){
-        myTextView.setText(question.getQuestion(num));
-        button7.setText(question.getChoice1(num));
-        button6.setText(question.getChoice2(num));
-        button5.setText(question.getChoice3(num));
-        button.setText(question.getChoice4(num));
-        answer = question.getCorrectAnswer(num);
+    private void NextQuestion(){
+        if (counter == Questions.questions.size()){
+            Intent intent = new Intent(this, MainMenu.class);
+            Toast.makeText(StartGame.this, "End Game", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
+        myTextView.setText(Questions.questions.get(counter));
+        buttonA.setText(Questions.choices[counter][0]);
+        buttonB.setText(Questions.choices[counter][1]);
+        buttonC.setText(Questions.choices[counter][2]);
+        buttonD.setText(Questions.choices[counter][3]);
+        answer = Questions.correct.get(counter);
+        counter++;
     }
 }
