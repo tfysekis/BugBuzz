@@ -8,7 +8,7 @@
     tools:context=".HighScores">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/recycler_view_in_scores"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:paddingTop="?attr/actionBarSize"
@@ -17,4 +17,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/image_view_no_users_scores"
+        android:layout_width="225dp"
+        android:layout_height="264dp"
+        android:layout_marginTop="192dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_no_users"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/no_users_text_view_scores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="NO USERS CREATED"
+        android:textColor="#00FFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_no_users_scores"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

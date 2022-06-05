@@ -1,5 +1,6 @@
 package com.example.bug_buzz;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,13 +65,29 @@ public class MyDBHelper extends SQLiteOpenHelper {
         if(result == -1){
             Toast.makeText(context, "Failed to add player", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Succesfully Added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Successfully Added", Toast.LENGTH_SHORT).show();
         }
     }
     boolean deletePlayer(String username){
         SQLiteDatabase db = this.getWritableDatabase();
 
         return db.delete(TABLE_NAME, COLUMN_USERNAME + "=?",new String[]{username}) > 0;
+    }
+
+    void updatePlayerScore(String username, String newScore){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + COLUMN_HIGHSCORE + " FROM " + TABLE_NAME + " where instr(" + COLUMN_USERNAME + ", ?)";
+        Cursor cursor = db.rawQuery(query, new String[]{username});
+        String currentPlayerScore = "";
+        if (db != null){
+            cursor.moveToFirst();
+            currentPlayerScore = cursor.getString(0);
+            ContentValues cv = new ContentValues();
+            if(Integer.parseInt(newScore) > Integer.parseInt(currentPlayerScore)){
+                cv.put(COLUMN_HIGHSCORE, newScore);
+                db.update(TABLE_NAME,cv, COLUMN_USERNAME + "=?", new String[]{username});
+            }
+        }
 
     }
 

@@ -9,10 +9,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,10 +23,10 @@ public class ProfileSelection extends AppCompatActivity {
     TextView noData, selectAUser;
 
     MyDBHelper Players;
-    ArrayList<String> player_id, player_username, player_highscore;
+    protected ArrayList<String> player_id, player_username, player_highscore; //make them global
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private static Bundle mBundleRecyclerViewState;
-    CustomAdapter customAdapter;
+    CustomAdapterInProfile customAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +53,7 @@ public class ProfileSelection extends AppCompatActivity {
 
         storeDataInArrays();
 
-        customAdapter = new CustomAdapter(ProfileSelection.this, player_id,player_username,player_highscore);
+        customAdapter = new CustomAdapterInProfile(ProfileSelection.this, player_username);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ProfileSelection.this));
 

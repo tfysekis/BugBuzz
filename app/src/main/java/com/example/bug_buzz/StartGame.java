@@ -4,41 +4,52 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Currency;
 import java.util.Random;
+import java.util.Spliterator;
 
 public class StartGame extends AppCompatActivity implements View.OnClickListener {
 
-    private String player_username;
+    private String currentPlayerUsername;
+    private int score;
     private Button buttonA, buttonB, buttonC, buttonD, button_skip;
     private TextView myTextView;
     private String answer;
     private int questionLength;
-    private int counter = 0;
+    private int counter;
+    MyDBHelper Players;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
-        if(getIntent().hasExtra("player_username")){
-            player_username = getIntent().getStringExtra("player_username");
-            Toast.makeText(this, player_username, Toast.LENGTH_SHORT).show();
+        if (getIntent().hasExtra("player_username")) {
+            currentPlayerUsername = getIntent().getStringExtra("player_username");
         }
+
+        score = 0;
+        counter = 0;
+        Players = new MyDBHelper(StartGame.this);
+
         Questions.initializeQuestions();
         Questions.correctAnswers();
         Questions.shuffleEverything();
         questionLength = Questions.questions.size();
 
-        buttonA = (Button)findViewById(R.id.buttonA);
-        buttonB = (Button)findViewById(R.id.buttonB);
-        buttonC = (Button)findViewById(R.id.buttonC);
-        buttonD = (Button)findViewById(R.id.buttonD);
-        button_skip = (Button)findViewById(R.id.button_skip);
-        myTextView = (TextView)findViewById(R.id.myTextView);
+        buttonA = (Button) findViewById(R.id.buttonA);
+        buttonB = (Button) findViewById(R.id.buttonB);
+        buttonC = (Button) findViewById(R.id.buttonC);
+        buttonD = (Button) findViewById(R.id.buttonD);
+        button_skip = (Button) findViewById(R.id.button_skip);
+        myTextView = (TextView) findViewById(R.id.myTextView);
         NextQuestion();
     }
 
@@ -46,42 +57,42 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.buttonA:
-                if(buttonA.getText() == answer){
-                    //TODO: Score ++ to database
+                if (buttonA.getText() == answer) {
+                    score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
-                }else{
+                } else {
                     WrongAnswer();
                 }
                 break;
             case R.id.buttonB:
-                if(buttonB.getText() == answer){
-                    //TODO: Score ++ to database
+                if (buttonB.getText() == answer) {
+                    score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
-                }else{
+                } else {
                     WrongAnswer();
                 }
                 break;
 
             case R.id.buttonC:
-                if(buttonC.getText() == answer){
-                    //TODO: Score ++ to database
+                if (buttonC.getText() == answer) {
+                    score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
-                }else{
+                } else {
                     WrongAnswer();
                 }
                 break;
 
             case R.id.buttonD:
-                if(buttonD.getText() == answer){
-                    //TODO: Score ++ to database
+                if (buttonD.getText() == answer) {
+                    score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
-                }else{
+                } else {
                     WrongAnswer();
                 }
                 break;
@@ -97,9 +108,8 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
      * choice is wrong.
      */
 
-    private void WrongAnswer(){
+    private void WrongAnswer() {
         Toast.makeText(StartGame.this, "Wrong Answer", Toast.LENGTH_SHORT).show();
-        //TODO: Maybe Score-- to database
         NextQuestion();
     }
 
@@ -109,10 +119,12 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
      * the question.
      */
 
-    private void NextQuestion(){
-        if (counter == Questions.questions.size()){
+    private void NextQuestion() {
+        if (counter == Questions.questions.size()) {
+            Players.updatePlayerScore(currentPlayerUsername, String.valueOf(score));
+            counter = 0;
             Intent intent = new Intent(this, MainMenu.class);
-            Toast.makeText(StartGame.this, "End Game", Toast.LENGTH_SHORT).show();
+            Toast.makeText(StartGame.this, "Score = " + score, Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
         myTextView.setText(Questions.questions.get(counter));
