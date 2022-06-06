@@ -27,6 +27,13 @@ public class MyDBHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
+
+    /**
+     * Create the database table with 3 columns:
+     * 1)id (primary key)
+     * 2)player username
+     * 3)current highscore on the game
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query =
@@ -43,6 +50,11 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
+    /**
+     * Function that reads all the data from the database
+     * @return a cursor object with all the columns of the database in it
+     */
     public Cursor readAllData(){
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -54,10 +66,15 @@ public class MyDBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * function that adds a new player in the database
+     * @param username add a new player in the database with the given username
+     */
     void addPlayer(String username){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        //no need to add a new id as it is autoincrement
         cv.put(COLUMN_USERNAME, username);
         cv.put(COLUMN_HIGHSCORE, 0);
 
@@ -68,14 +85,26 @@ public class MyDBHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Successfully Added", Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**
+     * function used to delete a player from the database
+     * @param username delete a player with the given username
+     * @return true if the player has successfully deleted
+     */
     boolean deletePlayer(String username){
         SQLiteDatabase db = this.getWritableDatabase();
 
         return db.delete(TABLE_NAME, COLUMN_USERNAME + "=?",new String[]{username}) > 0;
     }
 
+    /**
+     * Function that updates the current score of the player if he/she made a new highscore
+     * @param username current player's username
+     * @param newScore player's new score
+     */
     void updatePlayerScore(String username, String newScore){
         SQLiteDatabase db = this.getWritableDatabase();
+        //sql query to take the current score of the player with the given username
         String query = "SELECT " + COLUMN_HIGHSCORE + " FROM " + TABLE_NAME + " where instr(" + COLUMN_USERNAME + ", ?)";
         Cursor cursor = db.rawQuery(query, new String[]{username});
         String currentPlayerScore = "";
@@ -83,6 +112,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
             currentPlayerScore = cursor.getString(0);
             ContentValues cv = new ContentValues();
+            //if the player's new score is bigger than the current one then update it
             if(Integer.parseInt(newScore) > Integer.parseInt(currentPlayerScore)){
                 cv.put(COLUMN_HIGHSCORE, newScore);
                 db.update(TABLE_NAME,cv, COLUMN_USERNAME + "=?", new String[]{username});

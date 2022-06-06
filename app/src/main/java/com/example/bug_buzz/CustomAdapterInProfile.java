@@ -30,6 +30,7 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
+        //use my_row1.xml layout for the recycler view in the profile selection activity
         View view = inflater.inflate(R.layout.my_row1, parent, false);
         return new MyViewHolder(view);
     }
@@ -50,13 +51,16 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
         PopupMenu menuOnLongClick;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            //initializing objects with their ids
             player_username_button = itemView.findViewById(R.id.player_username_button);
 
+            //initialize the popup menu
             menuOnLongClick = new PopupMenu(context, player_username_button);
             menuOnLongClick.inflate(R.menu.popup_menu);
             menuOnLongClick.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
+                    //when the delete selection has been pressed delete the current player from the database
                     switch (item.getItemId()){
                         case R.id.delete_selection:
                             MyDBHelper db = new MyDBHelper(context);
@@ -73,6 +77,7 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
             usernameClickListeners(menuOnLongClick);
         }
         void usernameClickListeners(PopupMenu menu){
+            //if user clicks on the username button the game starts
             player_username_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,10 +87,10 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
                     context.startActivity(intent);
                 }
             });
+            //if user clicks for a long time on the username button a pop up delete selection appears
             player_username_button.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    //should popup a delete selection
                         menu.show();
                         return true;
                 }

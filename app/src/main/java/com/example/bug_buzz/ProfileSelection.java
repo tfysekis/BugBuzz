@@ -23,7 +23,7 @@ public class ProfileSelection extends AppCompatActivity {
     TextView noData, selectAUser;
 
     MyDBHelper Players;
-    protected ArrayList<String> player_id, player_username, player_highscore; //make them global
+    protected ArrayList<String> player_id, player_username, player_highscore; //array lists used for saving each column of the database
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private static Bundle mBundleRecyclerViewState;
     CustomAdapterInProfile customAdapter;
@@ -32,6 +32,7 @@ public class ProfileSelection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_selection);
 
+        //initializing objects with their ids
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
         empty_imageView = findViewById(R.id.image_view_no_users);
@@ -53,6 +54,7 @@ public class ProfileSelection extends AppCompatActivity {
 
         storeDataInArrays();
 
+        //setting the custom adapter for this activity's recycler view
         customAdapter = new CustomAdapterInProfile(ProfileSelection.this, player_username);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ProfileSelection.this));
@@ -87,10 +89,12 @@ public class ProfileSelection extends AppCompatActivity {
         Cursor cursor = Players.readAllData();
 
         if(cursor.getCount() == 0){
+            //in case the database is empty make the appropriate views visible
             selectAUser.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
             empty_imageView.setVisibility(View.VISIBLE);
         }else{
+            //else store the data in array list
             cursor.moveToFirst();
             for(int i = 0; i < cursor.getCount(); i++){
                 player_id.add(cursor.getString(0));
@@ -99,6 +103,7 @@ public class ProfileSelection extends AppCompatActivity {
                 cursor.moveToNext();
 
             }
+            //default views
             selectAUser.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
             empty_imageView.setVisibility(View.GONE);

@@ -14,11 +14,13 @@ import android.widget.Toast;
 public class AddUser extends AppCompatActivity {
     EditText username_input;
     Button add_username_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
 
+        //initializing objects with their ids
         username_input = findViewById(R.id.enter_username);
         add_username_button = findViewById(R.id.add_username_button);
 
@@ -27,10 +29,14 @@ public class AddUser extends AppCompatActivity {
             public void onClick(View v) {
                 MyDBHelper Players = new MyDBHelper(AddUser.this);
                 String givenUsername = username_input.getText().toString().trim();
+                //check if username already exists in the database
                 if(usernameExists(Players, givenUsername)){
+                    //if username exists then repeat with another username
                     Toast.makeText(AddUser.this, "user already exists", Toast.LENGTH_SHORT).show();
                 }else{
+                    //if username doesn't exist in the database add the given username in the database
                     Players.addPlayer(givenUsername);
+                    //back in the profile selection
                     Intent intent = new Intent(AddUser.this, ProfileSelection.class);
                     startActivity(intent);
                 }
@@ -44,6 +50,13 @@ public class AddUser extends AppCompatActivity {
         AddUser.this.finish();
 
     }
+
+    /**
+     *
+     * @param database current database
+     * @param username given username
+     * @return true if username already exists in the database
+     */
     boolean usernameExists(MyDBHelper database, String username){
         Cursor cursor = database.readAllData();
 
