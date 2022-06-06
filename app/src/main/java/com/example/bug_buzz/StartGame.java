@@ -1,5 +1,6 @@
 package com.example.bug_buzz;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -30,6 +31,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_start_game);
         if (getIntent().hasExtra("player_username")) {
             currentPlayerUsername = getIntent().getStringExtra("player_username");
@@ -44,6 +46,12 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         Questions.shuffleEverything();
         questionLength = Questions.questions.size();
 
+        if (savedInstanceState != null){
+            counter = savedInstanceState.getInt("my_counter");
+            Questions.questions = savedInstanceState.getStringArrayList("my_questions");
+            Questions.correct = savedInstanceState.getStringArrayList("my_answers");
+        }
+
         buttonA = (Button) findViewById(R.id.buttonA);
         buttonB = (Button) findViewById(R.id.buttonB);
         buttonC = (Button) findViewById(R.id.buttonC);
@@ -53,6 +61,13 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         NextQuestion();
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("my_counter",counter);
+        outState.putStringArrayList("my_questions",Questions.questions);
+        outState.putStringArrayList("my_answers",Questions.correct);
+    }
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -120,7 +135,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
      */
 
     private void NextQuestion() {
-        if (counter == Questions.questions.size()) {
+        if (counter == Questions.questions.size() - 1) {
             Players.updatePlayerScore(currentPlayerUsername, String.valueOf(score));
             counter = 0;
             Intent intent = new Intent(this, MainMenu.class);

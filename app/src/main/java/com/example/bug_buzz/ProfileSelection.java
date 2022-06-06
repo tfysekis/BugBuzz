@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,11 +28,12 @@ public class ProfileSelection extends AppCompatActivity {
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private static Bundle mBundleRecyclerViewState;
     CustomAdapterInProfile customAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_selection);
-
+        getSupportActionBar().hide();
         //initializing objects with their ids
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
