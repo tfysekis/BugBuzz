@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -36,15 +38,6 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         if (getIntent().hasExtra("player_username")) {
             currentPlayerUsername = getIntent().getStringExtra("player_username");
         }
-
-     /*   if (savedInstanceState != null){
-            counter = savedInstanceState.getInt("my_counter");
-            Questions.questions = savedInstanceState.getStringArrayList("my_questions");
-            Questions.correct = savedInstanceState.getStringArrayList("my_answers");
-            //Questions.shuffleEverything();
-            Toast.makeText(this, "SAVED INSTANCE STATE", Toast.LENGTH_SHORT).show();
-        }*/
-
         //setting the action bar when player is in the game
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
@@ -71,7 +64,6 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        Toast.makeText(this, "COUNTER = " + counter, Toast.LENGTH_SHORT).show();
         switch (view.getId()) {
             case R.id.buttonA:
                 if (buttonA.getText() == answer) {
@@ -139,14 +131,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
             Players.updatePlayerScore(currentPlayerUsername, String.valueOf(score));
             counter = 0;
             Toast.makeText(StartGame.this, "Score = " + score, Toast.LENGTH_SHORT).show();
-            //StartGame.this.finish();
-            Intent intent = new Intent(StartGame.this, MainMenu.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            this.finish();
-            //startActivity(intent);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-           // startActivity(intent);
+            finish();
         }else{
             myTextView.setText(Questions.questions.get(counter));
             buttonA.setText(Questions.choices[counter][0]);

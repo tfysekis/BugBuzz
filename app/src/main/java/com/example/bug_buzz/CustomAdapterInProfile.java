@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterInProfile.MyViewHolder> {
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     protected ArrayList<String> player_username;
     int position;
 
-    public CustomAdapterInProfile(Context context, ArrayList<String> player_username) {
+    public CustomAdapterInProfile(Context context, ArrayList<String> player_username, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
+        this.recyclerViewInterface = recyclerViewInterface;
         this.player_username = player_username;
     }
 
@@ -32,7 +35,7 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
         LayoutInflater inflater = LayoutInflater.from(context);
         //use my_row1.xml layout for the recycler view in the profile selection activity
         View view = inflater.inflate(R.layout.my_row1, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
         Button player_username_button;
         PopupMenu menuOnLongClick;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             //initializing objects with their ids
             player_username_button = itemView.findViewById(R.id.player_username_button);
@@ -74,20 +77,23 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
                     }
                 }
             });
-
             usernameClickListeners(menuOnLongClick);
-        }
-
-        void usernameClickListeners(PopupMenu menu) {
+            //usernameClickListeners(menuOnLongClick);
             player_username_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //should redirect to the start of the game
-                    Intent intent = new Intent(context, StartGame.class);
-                    intent.putExtra("player_username", player_username.get(position));
-                    context.startActivity(intent);
+                    if (recyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if (pos != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onUsernameClick(pos);
+                        }
+                    }
                 }
             });
+        }
+
+        void usernameClickListeners(PopupMenu menu) {
             //if user clicks for a long time on the username button a pop up delete selection appears
             player_username_button.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

@@ -17,11 +17,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class ProfileSelection extends AppCompatActivity{
+public class ProfileSelection extends AppCompatActivity implements RecyclerViewInterface{
     RecyclerView recyclerView;
     FloatingActionButton add_button;
     ImageView empty_imageView;
-
     TextView noData, selectAUser;
 
     MyDBHelper Players;
@@ -34,7 +33,7 @@ public class ProfileSelection extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_selection);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         //initializing objects with their ids
         recyclerView = findViewById(R.id.recyclerView);
         add_button = findViewById(R.id.add_button);
@@ -55,12 +54,13 @@ public class ProfileSelection extends AppCompatActivity{
         player_username = new ArrayList<>();
         player_highscore = new ArrayList<>();
 
+
         storeDataInArrays();
 
         //setting the custom adapter for this activity's recycler view
-        customAdapter = new CustomAdapterInProfile(ProfileSelection.this, player_username);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ProfileSelection.this));
+        customAdapter = new CustomAdapterInProfile(ProfileSelection.this, player_username,this);
         recyclerView.setAdapter(customAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ProfileSelection.this));
 
     }
 
@@ -68,8 +68,17 @@ public class ProfileSelection extends AppCompatActivity{
     protected void onPause()
     {
         super.onPause();
-        this.finish();
 
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
     }
     void storeDataInArrays(){
         Cursor cursor = Players.readAllData();
@@ -84,13 +93,13 @@ public class ProfileSelection extends AppCompatActivity{
             player_id.clear();
             player_highscore.clear();
             player_username.clear();
+
             cursor.moveToFirst();
             for(int i = 0; i < cursor.getCount(); i++){
                 player_id.add(cursor.getString(0));
                 player_username.add(cursor.getString(1));
                 player_highscore.add(cursor.getString(2));
                 cursor.moveToNext();
-
             }
             //default views
             selectAUser.setVisibility(View.VISIBLE);
@@ -99,4 +108,11 @@ public class ProfileSelection extends AppCompatActivity{
         }
     }
 
+    @Override
+    public void onUsernameClick(int position) {
+        Intent intent = new Intent(this, StartGame.class);
+        intent.putExtra("player_username", player_username.get(position));
+
+        startActivity(intent);
+    }
 }

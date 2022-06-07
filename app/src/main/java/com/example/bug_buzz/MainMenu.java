@@ -28,6 +28,10 @@ public class MainMenu extends AppCompatActivity {
         super.onPause();
     }
     //on click method for Start Game button
+    @Override
+    public void onBackPressed(){
+        this.finishAffinity();
+    }
     public void onStartGame(View view) {
         Intent intent = new Intent(this, ProfileSelection.class);
         startActivity(intent);
@@ -41,7 +45,7 @@ public class MainMenu extends AppCompatActivity {
 
     //on click method for exit button
     public void QuitApp(View view) {
-        MainMenu.this.finish();
+        this.finishAffinity();
         System.exit(0);
     }
 }
