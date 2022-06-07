@@ -11,24 +11,29 @@
         android:theme="@style/Theme.BugBuzz">
         <activity
             android:name=".HighScores"
+            android:screenOrientation="portrait"
             android:label="Highscores"
             android:parentActivityName=".MainMenu"
             android:exported="false" />
         <activity
             android:name=".AddUser"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:label="Add User"
             android:parentActivityName=".ProfileSelection" />
         <activity
             android:name=".StartGame"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ProfileSelection"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainMenu"
             android:label="@string/label_profile_selection" />
         <activity
             android:name=".MainMenu"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
