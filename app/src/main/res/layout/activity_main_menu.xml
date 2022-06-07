@@ -7,53 +7,40 @@
     android:background="@drawable/startupbackround"
     tools:context=".MainMenu">
 
-        <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/start_game"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Game"
+        android:layout_marginTop="196dp"
+        android:backgroundTint="#00FFFF"
         android:onClick="onStartGame"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Start Game"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:id="@+id/high_scores"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="225dp"
-        android:text="High Scores"
+        android:layout_marginTop="76dp"
+        android:backgroundTint="#00FFFF"
         android:onClick="onHighScores"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="OnClick" />
+        android:text="High Scores"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/start_game"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Exit"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#00FFFF"
         android:onClick="QuitApp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="36dp"
-        android:checked="true"
-        android:text="Sound"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        android:text="Exit"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/high_scores"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

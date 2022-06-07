@@ -8,11 +8,13 @@
 
     <Button
         android:id="@+id/player_username_button"
-        android:layout_width="322dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginTop="12dp"
+        android:backgroundTint="#00FFFF"
         android:text="username1"
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"

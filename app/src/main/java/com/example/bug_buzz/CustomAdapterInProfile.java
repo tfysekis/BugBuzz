@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterInProfile.MyViewHolder> {
     Context context;
-    protected ArrayList player_username;
+    protected ArrayList<String> player_username;
     int position;
 
-    public CustomAdapterInProfile(Context context, ArrayList player_username) {
+    public CustomAdapterInProfile(Context context, ArrayList<String> player_username) {
         this.context = context;
         this.player_username = player_username;
     }
@@ -39,6 +39,7 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.player_username_button.setText(String.valueOf(player_username.get(position)));
         this.position = position;
+
     }
 
     @Override
@@ -49,11 +50,11 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
     public class MyViewHolder extends RecyclerView.ViewHolder {
         Button player_username_button;
         PopupMenu menuOnLongClick;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             //initializing objects with their ids
             player_username_button = itemView.findViewById(R.id.player_username_button);
-
             //initialize the popup menu
             menuOnLongClick = new PopupMenu(context, player_username_button);
             menuOnLongClick.inflate(R.menu.popup_menu);
@@ -61,11 +62,11 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     //when the delete selection has been pressed delete the current player from the database
-                    switch (item.getItemId()){
+                    switch (item.getItemId()) {
                         case R.id.delete_selection:
                             MyDBHelper db = new MyDBHelper(context);
-                            if (db.deletePlayer(player_username_button.getText().toString())){
-                                Intent intent = new Intent(context,ProfileSelection.class);
+                            if (db.deletePlayer(player_username.get(position))) {
+                                Intent intent = new Intent(context, ProfileSelection.class);
                                 context.startActivity(intent);
                             }
                         default:
@@ -76,14 +77,14 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
 
             usernameClickListeners(menuOnLongClick);
         }
-        void usernameClickListeners(PopupMenu menu){
-            //if user clicks on the username button the game starts
+
+        void usernameClickListeners(PopupMenu menu) {
             player_username_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //should redirect to the start of the game
                     Intent intent = new Intent(context, StartGame.class);
-                    intent.putExtra("player_username", player_username_button.getText().toString());
+                    intent.putExtra("player_username", player_username.get(position));
                     context.startActivity(intent);
                 }
             });
@@ -91,10 +92,11 @@ public class CustomAdapterInProfile extends RecyclerView.Adapter<CustomAdapterIn
             player_username_button.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                        menu.show();
-                        return true;
+                    menu.show();
+                    return true;
                 }
             });
         }
     }
 }
+

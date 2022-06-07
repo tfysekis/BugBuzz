@@ -12,4 +12,5 @@
     <string name="label_profile_selection">Profile Selection</string>
     <string name="add_button">Add profile button</string>
     <string name="enter_username">Add username</string>
+
 </resources>

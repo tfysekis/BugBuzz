@@ -17,7 +17,7 @@ public class HighScores extends AppCompatActivity {
 
     RecyclerView recyclerView;
     CustomAdapterInScores customAdapter;
-    protected ArrayList<String> player_id, player_username, player_highscore;
+    protected ArrayList<String>  player_username, player_highscore;
 
     ImageView emptyImageView;
     TextView noData;
@@ -33,7 +33,6 @@ public class HighScores extends AppCompatActivity {
         emptyImageView = findViewById(R.id.image_view_no_users_scores);
         noData = findViewById(R.id.no_users_text_view_scores);
 
-        player_id = new ArrayList<>();
         player_username = new ArrayList<>();
         player_highscore = new ArrayList<>();
 
@@ -55,7 +54,6 @@ public class HighScores extends AppCompatActivity {
         } else {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
-                player_id.add(cursor.getString(0));
                 player_username.add(cursor.getString(1));
                 player_highscore.add(cursor.getString(2));
                 cursor.moveToNext();

@@ -11,6 +11,7 @@
         android:theme="@style/Theme.BugBuzz">
         <activity
             android:name=".HighScores"
+            android:label="Highscores"
             android:parentActivityName=".MainMenu"
             android:exported="false" />
         <activity

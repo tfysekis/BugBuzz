@@ -1,6 +1,6 @@
 package com.example.bug_buzz;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
         import java.util.Arrays;
         import java.util.Collections;
         import java.util.List;
@@ -30,10 +30,9 @@ public class Questions {
             {"Compiling","Executing","Debugging","Scanning"},
             {"Alt - C","Shift - C","Esc", "Ctrl - C"},
             {"Initialization","Condition","Variable","increment"},
-            {"While loop","Infinite loop","Recursive loop",") for loop"},
+            {"While loop","Infinite loop","Recursive loop"," for loop"},
             {"Using namespace std;","Using namespace standard;","Using standard namespace;","Standard namespace used;"},
             {"Hyper Trainer Marking Language","Hyper Text Marketing Language","Hyper Text Markup Language","Hyper Text Markup Leveler"}
-
 
     };
     public static void correctAnswers(){

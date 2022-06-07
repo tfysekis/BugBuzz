@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class ProfileSelection extends AppCompatActivity {
+public class ProfileSelection extends AppCompatActivity{
     RecyclerView recyclerView;
     FloatingActionButton add_button;
     ImageView empty_imageView;
@@ -58,9 +58,8 @@ public class ProfileSelection extends AppCompatActivity {
 
         //setting the custom adapter for this activity's recycler view
         customAdapter = new CustomAdapterInProfile(ProfileSelection.this, player_username);
-        recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ProfileSelection.this));
-
+        recyclerView.setAdapter(customAdapter);
 
     }
 
@@ -68,25 +67,9 @@ public class ProfileSelection extends AppCompatActivity {
     protected void onPause()
     {
         super.onPause();
-        ProfileSelection.this.finish();
-        // save RecyclerView state
-        mBundleRecyclerViewState = new Bundle();
-        Parcelable listState = recyclerView.getLayoutManager().onSaveInstanceState();
-        mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
+        this.finish();
 
     }
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-
-        // restore RecyclerView state
-        if (mBundleRecyclerViewState != null) {
-            Parcelable listState = mBundleRecyclerViewState.getParcelable(KEY_RECYCLER_STATE);
-            recyclerView.getLayoutManager().onRestoreInstanceState(listState);
-        }
-    }
-
     void storeDataInArrays(){
         Cursor cursor = Players.readAllData();
 
@@ -97,6 +80,9 @@ public class ProfileSelection extends AppCompatActivity {
             empty_imageView.setVisibility(View.VISIBLE);
         }else{
             //else store the data in array list
+            player_id.clear();
+            player_highscore.clear();
+            player_username.clear();
             cursor.moveToFirst();
             for(int i = 0; i < cursor.getCount(); i++){
                 player_id.add(cursor.getString(0));
@@ -111,4 +97,5 @@ public class ProfileSelection extends AppCompatActivity {
             empty_imageView.setVisibility(View.GONE);
         }
     }
+
 }

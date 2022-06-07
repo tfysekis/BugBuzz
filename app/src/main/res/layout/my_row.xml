@@ -9,6 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="#00FFFF"
         android:layout_marginTop="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +37,7 @@
                 android:layout_marginStart="84dp"
                 android:text="username1"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
