@@ -21,6 +21,7 @@ public class ProfileSelection extends AppCompatActivity{
     RecyclerView recyclerView;
     FloatingActionButton add_button;
     ImageView empty_imageView;
+
     TextView noData, selectAUser;
 
     MyDBHelper Players;
