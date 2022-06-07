@@ -9,9 +9,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,7 +30,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     private int counter;
     private int skipCounter;
     MyDBHelper Players;
-    int myColor = Color.parseColor("#00ffff");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,102 +68,47 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         switch (view.getId()) {
             case R.id.buttonA:
                 if (buttonA.getText() == answer) {
-                    buttonA.setBackgroundColor(Color.GREEN);
-                    new Handler().postDelayed(new Runnable() {
-
-                        public void run() {
-                            buttonA.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
                 } else {
-                    buttonA.setBackgroundColor(Color.RED);
-                    new Handler().postDelayed(new Runnable() {
-
-                        public void run() {
-                            buttonA.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     WrongAnswer();
                 }
                 break;
             case R.id.buttonB:
                 if (buttonB.getText() == answer) {
-                    buttonB.setBackgroundColor(Color.GREEN);
-                    new Handler().postDelayed(new Runnable() {
-
-                        public void run() {
-                            buttonB.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
                 } else {
-                    buttonB.setBackgroundColor(Color.RED);
-                    new Handler().postDelayed(new Runnable() {
-
-                        public void run() {
-                            buttonB.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     WrongAnswer();
                 }
                 break;
 
             case R.id.buttonC:
                 if (buttonC.getText() == answer) {
-                    buttonC.setBackgroundColor(Color.GREEN);
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-                            buttonC.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
                 } else {
-                    buttonC.setBackgroundColor(Color.RED);
-                    new Handler().postDelayed(new Runnable() {
-
-                        public void run() {
-                            buttonC.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     WrongAnswer();
                 }
                 break;
 
             case R.id.buttonD:
                 if (buttonD.getText() == answer) {
-                    buttonD.setBackgroundColor(Color.GREEN);
-                    new Handler().postDelayed(new Runnable() {
-
-                        public void run() {
-                            buttonD.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     score++;
                     Toast.makeText(StartGame.this, "You Are Correct", Toast.LENGTH_SHORT).show();
                     NextQuestion();
                 } else {
-                    buttonD.setBackgroundColor(Color.RED);
-                    new Handler().postDelayed(new Runnable() {
-
-                        public void run() {
-                            buttonD.setBackgroundColor(myColor);
-                        }
-                    }, 1000);
                     WrongAnswer();
                 }
                 break;
 
             case R.id.button_skip:
-                if(skipCounter == 3){
-                    Toast.makeText(StartGame.this, "You cant skip any more questions!", Toast.LENGTH_SHORT).show();
-                }else{
+                if (skipCounter == 3){
+                    Toast.makeText(StartGame.this, "You cant skip more questions!", Toast.LENGTH_SHORT).show();
+                }else {
                     skipCounter++;
                     Toast.makeText(StartGame.this, "You skipped the question", Toast.LENGTH_SHORT).show();
                     NextQuestion();
